@@ -12,6 +12,9 @@ export default class AnimalList extends Component {
                     this.props.owners.map(owner =>
                     <div id={`owner--${owner.id}`} key={owner.id}>
                        <h4>{owner.name} - {owner.number}</h4>
+                       <a href="#"
+                                    onClick={() => this.props.deleteOwners(owner.id)}
+                                    className="card-link-Owner">Delete</a>
                     </div>
                     )
                 }
