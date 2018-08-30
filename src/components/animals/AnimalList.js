@@ -3,7 +3,7 @@ import dog from "./DogIcon.png"
 import './animals.css'
 import {Link} from "react-router-dom"
 
-
+//1. this is saying when the add an animal button is pushed then a new path is created -('/animals/new')
 export default class AnimalList extends Component {
     render () {
         return (
@@ -11,6 +11,7 @@ export default class AnimalList extends Component {
                 <div className="animalButton">
                     <button type="button"
                             className="btn btn-success"
+                        //1. 
                             onClick={() => {
                                 this.props.history.push("/animals/new")}
                             }>Add an Animal</button>

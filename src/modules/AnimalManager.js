@@ -25,6 +25,8 @@ export default Object.create(null, {
             }).then(e => e.json())
         }
     },
+
+    //this is for the edit button
     patch: {
         value: function (id, editAnimal) {
             return fetch(`${remoteURL}/animals/${id}`, {

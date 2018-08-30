@@ -3,12 +3,18 @@ import "./animals.css"
 console.log("why is this not working?")
 
 export default class AnimalEdit extends Component {
+
+    componentDidMount () {
+        const animal = this.props.animals.find(a => a.id === parseInt(this.props.match.params.animalId, 0)) 
+        this.setState(animal)
+              
+    }
     
     // Set initial state
     state = {
-        animalName: "",
-        type: "",
-        employee: ""
+            name:"",
+            type:"",
+            employeeId:""
     }
 
     // Update state whenever an input field is edited
@@ -19,31 +25,34 @@ export default class AnimalEdit extends Component {
     }
 
     
+    
     /*
         Local method for validation, creating animal object, and
         invoking the function reference passed from parent component
      */
     handleSubmit = evt => {
         evt.preventDefault()
+        const conditionEmployee = typeof this.state.employeeId === 'number'
         if (this.state.employee === "") {
             window.alert("Please select a caretaker")
         } else {
             const animal = {
-                name: this.state.animalName,
+                name: this.state.name,
                 type: this.state.type,
-                employeeId: this.props.employees.find(e => e.name === this.state.employee).id
+                employeeId: conditionEmployee ? this.state.employeeId : this.props.employees.find(e => e.name === this.state.employeeId).id
             }
-                
+              
 
             // Create the animal and redirect user to animal list
+            console.log("animal", animal)
             this.props.editAnimal(this.props.match.params.animalId, animal).then(() => this.props.history.push("/animals"))
+            
         }
        
     };
 
     render() {
-        const animal = this.props.animals.find(a => a.id === parseInt(this.props.match.params.animalId, 0)) || {}
-        console.log("does this work??")
+        
         return (
             <React.Fragment>
                 <form className="animalForm">
@@ -52,7 +61,7 @@ export default class AnimalEdit extends Component {
                         <input type="text" required="true"
                                className="form-control"
                                onChange={this.handleFieldChange}
-                               id="animalName"
+                               id="name"
                                defaultValue={this.state.name}
                                placeholder="Animal name" />
                     </div>
@@ -61,13 +70,15 @@ export default class AnimalEdit extends Component {
                         <input type="text" required="true"
                                className="form-control"
                                onChange={this.handleFieldChange}
-                               id="type" placeholder="Type" />
+                               id="type" 
+                               defaultValue={this.state.type}
+                               placeholder="Type" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="employee">Assign to caretaker</label>
-                        <select defaultValue="" name="employee" id="employee"
+                        <select defaultValue={this.state.employeeId} name="employee" id="employeeId"
                                 onChange={this.handleFieldChange}>
-                            <option value="">Select an employee</option>
+                            <option defaultValue={this.state.employeeId}>Select an employee</option>
                         {
                             this.props.employees.map(e => <option key={e.id} id={e.id}>{e.name}</option>)
                         }

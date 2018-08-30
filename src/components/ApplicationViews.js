@@ -24,7 +24,7 @@ import Login from './Login'
 
 export default class ApplicationViews extends Component {
 
-     // Check if credentials are in local storage
+     // Check if credentials are in local storage. this is for logging in.
      isAuthenticated = () => localStorage.getItem("credentials") !== null
 
     state = {
@@ -76,6 +76,7 @@ export default class ApplicationViews extends Component {
         animals: animals
     }))
 
+    //editAnimal function that calls the patch function from the Animal Manager (Api Function)
     editAnimal = (id, animalObject) => AnimalManager.patch(id, animalObject)
     .then(() => AnimalManager.getAll())
     .then(animals => this.setState({
@@ -98,45 +99,8 @@ export default class ApplicationViews extends Component {
     
 
     
-    // employeesFromAPI = [
-    //     { id: 1, name: "Jessica Younker" },
-    //     { id: 2, name: "Jordan Nelson" },
-    //     { id: 3, name: "Zoe LeBlanc" },
-    //     { id: 4, name: "Blaise Roberts" }
-    // ]
-
-    // locationsFromAPI = [
-    //     { id: 1, name: "Nashville North", address: "500 Circle Way" },
-    //     { id: 2, name: "Nashville South", address: "10101 Binary Court" }
-    // ]
-
-    // animalsFromAPI = [
-    //     { id: 1, name: "Molly", type: "dog" },
-    //     { id: 2, name: "Ruby", type: "dog" },
-    //     { id: 3, name: "Shadow", type: "cat" },
-    //     { id: 4, name: "Pinky", type: "fish" },
-    //     { id: 5, name: "Baby", type: "dog" }
-
-    // ]
-
-    // ownersFromAPI = [
-    //     { id: 1, name: "Helen", number: "615-540-7803" },
-    //     { id: 2, name: "Ricky", number: "615-223-7654" },
-    //     { id: 3, name: "Pat", number: "615-224-6502" },
-    //     { id: 4, name: "Kayla", number: "615-543-0987" }
-    // ]
-
-    // componentDidMount() {
-    //     const newState = {}
-        
-    // DataManager.getAll()
-    //     .then(allAnimals => {
-    //         this.setState({
-    //             animals: allAnimals
-    //         })
-    //     })
-    // }
-
+   
+//this is needed to pull data from an API 
     componentDidMount() {
         const newState = {}
     
@@ -144,7 +108,6 @@ export default class ApplicationViews extends Component {
             .then(r => r.json())
             .then(locations => newState.locations = locations)
             
-
             .then(() => EmployeeManager.getAll().then(allEmployees => newState.employees = allEmployees))
 
             .then(() => OwnerManager.getAll().then(allOwners => newState.owners = allOwners))
@@ -167,9 +130,14 @@ export default class ApplicationViews extends Component {
                 }} />
 
                 <Route exact path="/animals" render={(props) => {
-                    return <AnimalList {...props} 
-                    deleteAnimal={this.deleteAnimal} 
-                    animals={this.state.animals} />
+                    if (this.isAuthenticated()) {
+                        return <AnimalList 
+                                            {...props}
+                                            deleteAnimal={this.deleteAnimal}
+                                            animals={this.state.animals} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
 
                 <Route  path="/animals/:animalId(\d+)" render={(props) => {
@@ -209,7 +177,12 @@ export default class ApplicationViews extends Component {
                 }} />
 
                 <Route exact path="/owners" render={(props) => {
-                    return <OwnersList {...props} deleteOwners={this.deleteOwners} owners={this.state.owners} />
+                    if (this.isAuthenticated()) {
+                        return <OwnersList deleteOwner={this.deleteOwner}
+                                             owners={this.state.owners} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 
 

@@ -32,55 +32,33 @@
   "animals": [
     {
       "id": 1,
-      "name": "Molly",
-      "type": "dog"
+      "name": "Madi",
+      "type": "Cat",
+      "employeeId": 2
     },
     {
-      "id": 2,
-      "name": "Test 5000",
-      "type": "Test 5000",
-      "employeeId": 4
-    },
-    {
-      "id": 5,
-      "name": "Baby",
-      "type": "dog"
-    },
-    {
-      "name": "Fairy",
-      "type": "Bird",
+      "name": "Helen",
+      "type": "Puppy",
       "employeeId": 4,
       "id": 6
     },
     {
-      "name": "Scooby",
-      "type": "Dog",
-      "employeeId": 5,
+      "name": "Ricky",
+      "type": "Cat",
+      "employeeId": 2,
       "id": 7
     },
     {
       "name": "Red Rover ",
-      "type": "Dog",
+      "type": "Dog2",
       "employeeId": 4,
       "id": 8
     },
     {
-      "name": "Test 1",
-      "type": "Bird",
+      "name": "Test 20",
+      "type": "Test 5000",
       "employeeId": 2,
       "id": 9
-    },
-    {
-      "name": "Test 3 ",
-      "type": "Test 3",
-      "employeeId": 4,
-      "id": 10
-    },
-    {
-      "name": "Fairy",
-      "type": "Bird",
-      "employeeId": 4,
-      "id": 11
     }
   ],
   "owners": [
@@ -95,9 +73,14 @@
       "id": 5
     },
     {
-      "name": "Madi",
-      "number": "770-9906-0009",
+      "name": "Ricky Bobby",
+      "number": "615-555-0789",
       "id": 6
+    },
+    {
+      "name": "Lil Dicky",
+      "number": "564-540-9804",
+      "id": 7
     }
   ]
 }
